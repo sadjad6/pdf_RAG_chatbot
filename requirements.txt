@@ -1,0 +1,13 @@
+streamlit
+langchain
+langchain-community
+langchain-text-splitters
+langchain-core
+langchain-ollama
+llama-index
+llama_index.embeddings.huggingface
+llama_index.llms.ollama
+llama-index-readers-file
+pdfplumber
+ollama
+pyPDF2
