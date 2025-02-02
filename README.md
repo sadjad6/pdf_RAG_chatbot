@@ -25,9 +25,9 @@ The **DeepSeek-R1 PDF Q&A Assistant** is a Streamlit-based web application that 
 ### Steps to Install & Run
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-repo/pdf-qa-deepseek.git
-   cd pdf-qa-deepseek
-   ```
+   git clone https://github.com/sadjad6/pdf_RAG_chatbot.git
+   cd pdf_RAG_chatbot
+      ```
 
 2. **Create and activate a virtual environment** (optional but recommended):
    ```bash
