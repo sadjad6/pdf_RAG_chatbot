@@ -1,5 +1,8 @@
 import os
+import fitz
 import base64
+import io
+from PIL import Image
 import gc
 import tempfile
 import uuid
@@ -20,7 +23,7 @@ def load_llm():
     # Increased timeout and added temperature parameter
     return Ollama(
         model="deepseek-r1:1.5b",
-        request_timeout=300.0,  # Increased from 120 to 300 seconds
+        request_timeout=300.0,  
         temperature=0.3,        # For more focused responses
         base_url='http://localhost:11434'  # Explicit Ollama server URL
     )
@@ -31,11 +34,25 @@ def reset_chat():
     gc.collect()
 
 def display_pdf(file):
+    """Display all pages of the PDF as images."""
     st.markdown("### PDF Preview")
+
+    # Read the PDF into PyMuPDF
     file.seek(0)
-    base64_pdf = base64.b64encode(file.read()).decode("utf-8")
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    pdf_document = fitz.open(stream=file.read(), filetype="pdf")
+
+    images = []
+
+    for page_num in range(len(pdf_document)):  # Process all pages
+        page = pdf_document[page_num]
+        pix = page.get_pixmap(matrix=fitz.Matrix(2, 2))  # High resolution
+        img = Image.open(io.BytesIO(pix.tobytes("png")))
+        images.append(img)
+
+    # Display extracted pages as images
+    for img in images:
+        st.image(img, use_container_width=True)  
+
 
 with st.sidebar:
     st.header("Upload Your Document")
@@ -55,14 +72,14 @@ with st.sidebar:
                 if file_key not in st.session_state.get('file_cache', {}):
                     # Optimized processing parameters
                     node_parser = SentenceSplitter(
-                        chunk_size=768,  # Reduced chunk size
+                        chunk_size=768,  
                         chunk_overlap=150,
-                        include_metadata=False  # Reduce metadata overhead
+                        include_metadata=False  
                     )
                     
                     llm = load_llm()
                     embed_model = HuggingFaceEmbedding(
-                        model_name="BAAI/bge-base-en-v1.5",  # Lighter model
+                        model_name="BAAI/bge-base-en-v1.5",  
                         trust_remote_code=True
                     )
 
@@ -75,7 +92,7 @@ with st.sidebar:
                         loader = SimpleDirectoryReader(
                             input_dir=temp_dir,
                             required_exts=[".pdf"],
-                            filename_as_id=True  # Better document tracking
+                            filename_as_id=True  # document tracking
                         )
                         docs = loader.load_data()
 
@@ -90,7 +107,7 @@ with st.sidebar:
                     # Configure query engine with timeout
                     query_engine = index.as_query_engine(
                         streaming=True,
-                        similarity_top_k=3,  # Reduced from 5
+                        similarity_top_k=3,  
                         response_timeout=60,  # Query-specific timeout
                         verbose=False         # Disable debug output
                     )

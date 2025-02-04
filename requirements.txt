@@ -11,3 +11,4 @@ llama-index-readers-file
 pdfplumber
 ollama
 pyPDF2
+pymupdf
