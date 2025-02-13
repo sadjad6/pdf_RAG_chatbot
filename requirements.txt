@@ -12,3 +12,4 @@ pdfplumber
 ollama
 pyPDF2
 pymupdf
+arxiv 
