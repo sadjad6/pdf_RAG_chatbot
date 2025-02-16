@@ -1,0 +1,10 @@
+streamlit
+PyMuPDF
+Pillow
+llama-index-core
+llama-index-llms-ollama
+llama-index-embeddings-huggingface
+requests
+python-dotenv
+huggingface-hub
+uuid
