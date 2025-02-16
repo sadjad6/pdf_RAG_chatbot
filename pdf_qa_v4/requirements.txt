@@ -1,0 +1,16 @@
+streamlit
+pymupdf
+pdfplumber
+pytesseract
+pillow
+transformers
+torch
+scikit-learn
+numpy
+llama-index-core
+llama-index-llms-ollama
+llama-index-embeddings-huggingface
+requests
+python-dotenv
+camelot-py[base]
+pdfminer-six==20231228  # Specific compatible version
