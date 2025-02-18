@@ -50,7 +50,7 @@ The **DeepSeek-R1 PDF Q&A Assistant** is a Streamlit-based web application that 
 
 4. **Run the Streamlit application**:
    ```bash
-   streamlit run pdf_qa_v2.py
+   streamlit run pdf_qa_v3.py
    ```
 
 ## How It Works
