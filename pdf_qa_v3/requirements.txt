@@ -8,3 +8,7 @@ requests
 python-dotenv
 huggingface-hub
 uuid
+llama-index-readers-file
+torch 
+torchvision 
+torchaudio
